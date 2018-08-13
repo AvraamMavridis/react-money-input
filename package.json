@@ -1,19 +1,32 @@
 {
-  "name": "new",
+  "name": "react-money-input",
   "version": "1.0.0",
   "description": "",
-  "keywords": [],
+  "keywords": [
+    "react",
+    "currency",
+    "money",
+    "input"
+  ],
   "main": "src/index.js",
   "dependencies": {
     "react": "16.3.2",
-    "react-dom": "16.3.2",
-    "react-scripts": "1.1.4"
+    "react-dom": "16.3.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "react-scripts": "latest",
+    "jest": "^23.4.2",
+		"babel-eslint": "^8.2.6",
+		"eslint": "^5.3.0",
+		"eslint-config-airbnb-base": "^13.0.0",
+		"eslint-config-avraam": "^1.0.0",
+		"eslint-plugin-import": "^2.13.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src --fix",
+		"test": "NODE_ENV=test jest --config jest.config.js"
   }
 }

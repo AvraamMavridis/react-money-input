@@ -1,33 +1,33 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import formats from './formats';
 
-export default class Amount extends Component {
+export default class CurrencyInput extends Component {
   static defaultProps = {
     onChange: () => null,
-    locale: "de-DE",
-    currency: "EUR",
-    currencyDisplay: "code",
+    locale: 'de-DE',
+    currency: 'EUR',
+    currencyDisplay: 'code',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-    formats: {
-      EUR: {
-        centsSeperator: ",",
-        style: "currency",
-        currency: "EUR",
-        allowedInput: /[^0-9-,]/g
-      },
-      GBP: {
-        centsSeperator: ".",
-        allowedInput: /[^0-9-.]/g,
-        style: "currency",
-        currency: "GBP"
-      }
-    }
+    formatOnEnter: true,
+    formats,
+  };
+
+  static propTypes = {
+    onChange: PropTypes.func,
+    locale: PropTypes.string,
+    currency: PropTypes.string,
+    currencyDisplay: PropTypes.string,
+    minimumFractionDigits: PropTypes.number,
+    maximumFractionDigits: PropTypes.number,
+    formatOnEnter: PropTypes.bool,
   };
 
   state = {
-    maskedValue: "0",
-    value: ""
+    maskedValue: '',
+    value: ''
   };
 
   constructor(props) {
@@ -44,35 +44,36 @@ export default class Amount extends Component {
     }).format;
   }
 
+  componentDidMount() {
+    if (this.props.initialValue !== null && this.props.initialValue !== undefined) {
+      this.setState({
+        maskedValue: this.formatCurrency(Number(this.props.initialValue))
+      });
+    }
+  }
+
   normalizeInput(str) {
     const { allowedInput } = this.props.formats[this.props.currency];
-    return str.replace(allowedInput, "");
+    return str.replace(allowedInput, '');
   }
 
   normalizeValue(str) {
-    return Number(str.replace(/[^0-9-]/g, ""));
+    return Number(str.replace(/[^0-9-]/g, ''));
   }
 
   parseValue(str) {
     const { centsSeperator } = this.props.formats[this.props.currency];
-    console.log(
-      str
-        .split(centsSeperator)
-        .slice(0, 2)
-        .join(".")
-    );
-    // allow only one comma, ignore the rest
     return str
       .split(centsSeperator)
       .slice(0, 2)
-      .join(".");
+      .join('.');
   }
 
   handleChange(event) {
     event.preventDefault();
     this.setState(
       {
-        value: this.parseValue(`${event.target.value}`),
+        value: this.parseValue(`${ event.target.value }`),
         maskedValue: this.normalizeInput(event.target.value)
       },
       () => this.props.onChange({ event, ...this.state })
@@ -88,7 +89,7 @@ export default class Amount extends Component {
 
   handleKeyPress(event) {
     const ENTER_KEY = 13;
-    if (event.which === ENTER_KEY) {
+    if (event.which === ENTER_KEY && this.props.formatOnEnter) {
       event.preventDefault();
       this.setState({
         maskedValue: this.formatCurrency(this.state.value)
@@ -115,21 +116,3 @@ export default class Amount extends Component {
     );
   }
 }
-
-ReactDOM.render(
-  <Amount locale="de-DE" currency="EUR" currencyDisplay="symbol" />,
-  document.getElementById("euro1")
-);
-ReactDOM.render(
-  <Amount locale="de-DE" currency="EUR" currencyDisplay="code" />,
-  document.getElementById("euro2")
-);
-
-ReactDOM.render(
-  <Amount locale="en-uk" currency="GBP" currencyDisplay="symbol" />,
-  document.getElementById("gbp1")
-);
-ReactDOM.render(
-  <Amount locale="en-uk" currency="GBP" currencyDisplay="code" />,
-  document.getElementById("gbp2")
-);

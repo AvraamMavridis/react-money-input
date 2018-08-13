@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import formats from './formats';
 
@@ -16,6 +15,7 @@ export default class CurrencyInput extends Component {
   };
 
   static propTypes = {
+    initialValue: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
     onChange: PropTypes.func,
     locale: PropTypes.string,
     currency: PropTypes.string,
@@ -23,6 +23,7 @@ export default class CurrencyInput extends Component {
     minimumFractionDigits: PropTypes.number,
     maximumFractionDigits: PropTypes.number,
     formatOnEnter: PropTypes.bool,
+    formats: PropTypes.object,
   };
 
   state = {
@@ -37,10 +38,10 @@ export default class CurrencyInput extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
 
     this.formatCurrency = new Intl.NumberFormat(this.props.locale, {
+      ...this.props.formats[this.props.currency],
       currencyDisplay: this.props.currencyDisplay,
       maximumFractionDigits: this.props.maximumFractionDigits,
       minimumFractionDigits: this.props.minimumFractionDigits,
-      ...this.props.formats[this.props.currency]
     }).format;
   }
 

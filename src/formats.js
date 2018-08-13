@@ -1,20 +1,22 @@
-export default = {
+const formats = {
   EUR: {
-    centsSeperator: ",",
-    style: "currency",
-    currency: "EUR",
+    centsSeperator: ',',
+    style: 'currency',
+    currency: 'EUR',
     allowedInput: /[^0-9-,]/g
   },
   GBP: {
-    centsSeperator: ".",
+    centsSeperator: '.',
     allowedInput: /[^0-9-.]/g,
-    style: "currency",
-    currency: "GBP"
+    style: 'currency',
+    currency: 'GBP'
   },
   USD: {
-    centsSeperator: ".",
+    centsSeperator: '.',
     allowedInput: /[^0-9-.]/g,
-    style: "currency",
-    currency: "USD"
+    style: 'currency',
+    currency: 'USD'
   }
 };
+
+export default formats;

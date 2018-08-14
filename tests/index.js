@@ -22,9 +22,9 @@ describe('CurrencyInput', () => {
         initialValue={100}
         currencyDisplay="symbol"
         currency="USD"
-        locale="de-DE" />
+        locale="en-US" />
     );
     const value = formatWhiteSpace(wrapper.find('input').props().value);
-    expect(value).toBe('€ 100.00"');
+    expect(value).toBe('$100.00');
   });
 });

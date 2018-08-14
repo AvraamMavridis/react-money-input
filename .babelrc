@@ -21,7 +21,7 @@
   ],
   "env": {
     "development": {
-      "plugins": ["babel-polyfill", "react-hot-loader/babel", "transform-es2015-modules-commonjs"]
+      "plugins": ["babel-polyfill", "transform-es2015-modules-commonjs"]
     },
     "test": {
       "plugins": ["transform-es2015-modules-commonjs"]

@@ -1,20 +1,31 @@
 {
   "name": "react-money-input",
   "version": "1.0.0",
-  "description": "",
+  "description": "React component that handles money",
   "keywords": [
     "react",
     "currency",
     "money",
     "input"
   ],
-  "main": "src/index.js",
+  "author": "AvraamMavridis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AvraamMavridis/react-money-input/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AvraamMavridis/react-money-input.git"
+  },
+  "homepage": "https://github.com/AvraamMavridis/react-money-input#readme",
+  "main": "./lib/index.js",
   "dependencies": {
     "prop-types": "^15.6.2",
     "react": "16.3.2",
     "react-dom": "16.3.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.2",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
@@ -35,9 +46,13 @@
     "react-styleguidist": "^7.2.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject",
+    "start": "styleguidist server",
+    "build": "styleguidist build",
+    "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin && git push origin --tags && npm publish",
+    "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin && git push origin --tags && npm publish",
+    "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin && git push origin --tags && npm publish",
+    "prepublish": "npm run test && npm run compile",
+    "compile": "./node_modules/.bin/babel ./src/ --out-dir ./lib/",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "lint": "eslint ./src --fix",

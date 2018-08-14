@@ -16,6 +16,7 @@ import formats from './formats';
  */
 export default class CurrencyInput extends Component {
   static defaultProps = {
+    autoFocus: false,
     className: '',
     currency: 'EUR',
     currencyDisplay: 'code',
@@ -24,10 +25,19 @@ export default class CurrencyInput extends Component {
     locale: 'de-DE',
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
-    onChange: () => null
+    onBlur: () => null,
+    onChange: () => null,
+    onFocus: () => null,
+    preventCursorMove: true,
+    onArrowPressAllowChange: true,
+    onArrowPressChangeStep: 1,
   };
 
   static propTypes = {
+    /** It specifies that an input element should automatically
+     * get focus when the page loads. */
+    autoFocus: PropTypes.bool,
+
     /** A css class to apply on the input */
     className: PropTypes.string,
 
@@ -62,6 +72,23 @@ export default class CurrencyInput extends Component {
     /** The minimum number of digits after the decimal separator. */
     minimumFractionDigits: PropTypes.number,
 
+    /** Increase/Decrease value on up/down arrow press */
+    onArrowPressAllowChange: PropTypes.bool,
+
+    /** The amount by which the value will be incrased/decreased when
+     * up/down arrows are pressed
+     */
+    onArrowPressChangeStep: PropTypes.number,
+
+    /**
+     * Gets called when the input loses focus
+     *
+     * @param {SyntheticEvent} event The react `SyntheticEvent`
+     * @param {number} value The value of the input
+     * @param {string} maskedValue The value of the input with currency and seperators
+     */
+    onBlur: PropTypes.func,
+
     /**
      * Gets called when the user types on the input field
      *
@@ -69,7 +96,19 @@ export default class CurrencyInput extends Component {
      * @param {number} value The value of the input
      * @param {string} maskedValue The value of the input with currency and seperators
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    /**
+     * Gets called when the input gains focus
+     *
+     * @param {SyntheticEvent} event The react `SyntheticEvent`
+     * @param {number} value The value of the input
+     * @param {string} maskedValue The value of the input with currency and seperators
+     */
+    onFocus: PropTypes.func,
+
+    /** Prevent the cursor from being moved when the up/down arrows are pressed */
+    preventCursorMove: PropTypes.bool,
   };
 
   state = {
@@ -82,6 +121,9 @@ export default class CurrencyInput extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+
     this.formatCurrency = new Intl.NumberFormat(this.props.locale, {
       ...this.props.formats[this.props.currency],
       currencyDisplay: this.props.currencyDisplay,
@@ -93,6 +135,7 @@ export default class CurrencyInput extends Component {
   componentDidMount() {
     if (this.props.initialValue !== null && this.props.initialValue !== undefined) {
       this.setState({
+        value: this.ignoreCharacters(`${ this.props.initialValue }`),
         maskedValue: this.formatCurrency(Number(this.props.initialValue))
       });
     }
@@ -149,8 +192,58 @@ export default class CurrencyInput extends Component {
    */
   handleBlur(event) {
     event.preventDefault();
+    const { value } = this.state;
+    const maskedValue = value !== '' ? this.formatCurrency(value) : '';
+
+    this.setState({ maskedValue }, () => this.props.onBlur(event, value, maskedValue));
+  }
+
+  /**
+   * Handle onFocus event
+   *
+   * @param {SyntheticEvent} event The react `SyntheticEvent`
+   */
+  handleFocus(event) {
+    event.preventDefault();
+    const value = this.ignoreCharacters(event.target.value);
+    const maskedValue = value;
+
+    this.setState({ maskedValue }, () => this.props.onFocus(event, value, maskedValue));
+  }
+
+  isKey(event, key) {
+    return (event.which === key || event.keyCode === key);
+  }
+
+  /**
+   * Handle onKeyUp event
+   *
+   * @param {SyntheticEvent} event The react `SyntheticEvent`
+   */
+  handleKeyDown(event) {
+    const isUpArrow = this.isKey(event, 38);
+    const isDownArrow = this.isKey(event, 40);
+
+    if (this.props.preventCursorMove && (isUpArrow || isDownArrow)) {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  /**
+   * Handle the arrow press
+   *
+   * @param {number} factor
+   * @memberof CurrencyInput
+   */
+  handleArrowPress(factor) {
+    const { value } = this.state;
+    const { onArrowPressChangeStep, onArrowPressAllowChange } = this.props;
+    if (!onArrowPressAllowChange) return;
+    const newValue = Number(value) + (factor * onArrowPressChangeStep);
     this.setState({
-      maskedValue: this.formatCurrency(this.state.value)
+      value: newValue,
+      maskedValue: newValue
     });
   }
 
@@ -161,12 +254,20 @@ export default class CurrencyInput extends Component {
    */
   handleKeyUp(event) {
     event.preventDefault();
-    const ENTER_KEY = 13;
+    const { formatOnEnter } = this.props;
+    const { value } = this.state;
+    const isEnter = this.isKey(event, 13);
+    const isUpArrow = this.isKey(event, 38);
+    const isDownArrow = this.isKey(event, 40);
 
-    if (event.which === ENTER_KEY && this.props.formatOnEnter) {
+    if (isEnter && formatOnEnter) {
       this.setState({
-        maskedValue: this.formatCurrency(this.state.value)
+        maskedValue: this.formatCurrency(value)
       });
+    } else if (isUpArrow) {
+      this.handleArrowPress(1);
+    } else if (isDownArrow) {
+      this.handleArrowPress(-1);
     } else {
       this.setState({
         maskedValue: event.target.value
@@ -195,7 +296,10 @@ export default class CurrencyInput extends Component {
         value={this.getMaskedValue()}
         onChange={this.handleChange}
         onBlur={this.handleBlur}
+        onFocus={this.handleFocus}
         onKeyUp={this.handleKeyUp}
+        onKeyDown={this.handleKeyDown}
+        autoFocus={this.props.autoFocus}
       />
     );
   }

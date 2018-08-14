@@ -1,3 +1,16 @@
+#### 1.1.2 (2018-08-14)
+
+##### Chores
+
+*  Update Readme ([6b6bf9e3](https://github.com/AvraamMavridis/react-money-input/commit/6b6bf9e3e524790afb49f3e68605a1ef53b6bc89))
+* **travis:**  whitelist greenkeeper branches ([fff1959d](https://github.com/AvraamMavridis/react-money-input/commit/fff1959d0d84a80502b58e2a2c9d58ddffb00c57))
+* **package:**  update dependencies ([bb50b006](https://github.com/AvraamMavridis/react-money-input/commit/bb50b0065b6f33e65772076f03f9a18a270604d7))
+
+##### Documentation Changes
+
+* **readme:**  add Greenkeeper badge ([5660a1db](https://github.com/AvraamMavridis/react-money-input/commit/5660a1db463ea16383200503b68ff5cba1335033))
+*  Update Demo/Documentation link ([8371112c](https://github.com/AvraamMavridis/react-money-input/commit/8371112cceb00ee4bb1b802480e3a76ffe02a275))
+
 #### 1.1.1 (2018-08-14)
 
 ##### Chores

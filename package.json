@@ -31,12 +31,15 @@
     "eslint-plugin-import": "^2.13.0",
     "jest": "^23.4.2",
     "jest-environment-jsdom": "^23.4.0",
-    "react-scripts": "latest"
+    "react-scripts": "latest",
+    "react-styleguidist": "^7.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
     "lint": "eslint ./src --fix",
     "test": "NODE_ENV=test jest --config jest.config.js",
     "test:watch": "NODE_ENV=test jest --watch --config jest.config.js"

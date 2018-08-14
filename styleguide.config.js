@@ -3,13 +3,13 @@ const path = require('path');
 module.exports = {
   require: [
     'babel-polyfill',
-    path.join(__dirname, 'styleguide/styles.css')
+    path.join(__dirname, './styles.css')
   ],
   components: 'src/index.js',
   exampleMode: 'expand',
   usageMode: 'expand',
   title: 'CurrencyInput',
-  styleguideDir: path.join(__dirname, '/docs'),
+  styleguideDir: path.join(__dirname, '/'),
   ribbon: {
     // Link to open on the ribbon click (required)
     url: 'https://github.com/AvraamMavridis/currency-input',

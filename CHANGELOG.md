@@ -1,3 +1,9 @@
+#### 1.1.1 (2018-08-14)
+
+##### Chores
+
+*  Add travis.yml ([4bc7fb14](https://github.com/AvraamMavridis/react-money-input/commit/4bc7fb14797b233a43cfa0eb0e8492e5cc5b6257))
+
 ### 1.1.0 (2018-08-14)
 
 ##### Chores

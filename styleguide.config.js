@@ -9,6 +9,7 @@ module.exports = {
   exampleMode: 'expand',
   usageMode: 'expand',
   title: 'CurrencyInput',
+  styleguideDir: path.join(__dirname, '/docs'),
   ribbon: {
     // Link to open on the ribbon click (required)
     url: 'https://github.com/AvraamMavridis/currency-input',

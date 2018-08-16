@@ -1,3 +1,10 @@
+#### 1.1.3 (2018-08-16)
+
+##### Chores
+
+*  Add generate-changelog ([7cd4ca2a](https://github.com/AvraamMavridis/react-money-input/commit/7cd4ca2af6198d170d903d1d0098d0cc1bcdd37e))
+*  Update depedencies ([f7889260](https://github.com/AvraamMavridis/react-money-input/commit/f78892606837655d287edf7f34246403350fedae))
+
 #### 1.1.2 (2018-08-14)
 
 ##### Chores

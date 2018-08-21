@@ -1,3 +1,16 @@
+#### 1.1.4 (2018-08-21)
+
+##### Chores
+
+*  Add package lock ([457056b5](https://github.com/AvraamMavridis/react-money-input/commit/457056b5aa9032521e31bb6db16d5e01c016c474))
+*  Add generate-changelog ([012cedeb](https://github.com/AvraamMavridis/react-money-input/commit/012cedeb8ab491327ee8142f3a7b4a5f1708bb0e))
+*  Update depedencies ([604f64a8](https://github.com/AvraamMavridis/react-money-input/commit/604f64a8f532457d91c049c531ef1fa1518fe1c6))
+* **package:**  update react-styleguidist to version 7.2.5 ([1fc5a434](https://github.com/AvraamMavridis/react-money-input/commit/1fc5a434f64727386671b7680ef7740f43d2b3e3))
+
+##### Bug Fixes
+
+*  pin react-styleguidist to 7.2.3 ([2313f79f](https://github.com/AvraamMavridis/react-money-input/commit/2313f79fc5149291cde403d523050512b4b46a0a))
+
 #### 1.1.3 (2018-08-16)
 
 ##### Chores

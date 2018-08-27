@@ -1,3 +1,9 @@
+#### 1.1.5 (2018-08-27)
+
+##### Chores
+
+* **package:**  update enzyme to version 3.4.4 ([9d7b72ec](https://github.com/AvraamMavridis/react-money-input/commit/9d7b72ecc8656f21d2559788581aa701239fd7ef))
+
 #### 1.1.4 (2018-08-21)
 
 ##### Chores

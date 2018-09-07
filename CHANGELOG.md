@@ -1,3 +1,14 @@
+#### 1.1.6 (2018-09-07)
+
+##### Chores
+
+*  Update lock ([936ad26b](https://github.com/AvraamMavridis/react-money-input/commit/936ad26bf9bf5c0b4ed75a0e91dab247ec6cdfb8))
+* **package:**
+  *  update react-styleguidist to version 7.3.0 ([505e2f82](https://github.com/AvraamMavridis/react-money-input/commit/505e2f825c6135b8c208b0e73f5aec29e44adfa1))
+  *  update enzyme-adapter-react-16 to version 1.3.0 ([c7712980](https://github.com/AvraamMavridis/react-money-input/commit/c7712980a152a1df688442e89ed65956ed74d054))
+  *  update enzyme to version 3.5.0 ([3344e333](https://github.com/AvraamMavridis/react-money-input/commit/3344e333766b96265586f275af0936cd3c462874))
+  *  update babel-eslint to version 9.0.0 ([#16](https://github.com/AvraamMavridis/react-money-input/pull/16)) ([eff4bcc4](https://github.com/AvraamMavridis/react-money-input/commit/eff4bcc4435871f6548022660c0d520b8740e68f))
+
 #### 1.1.5 (2018-08-27)
 
 ##### Chores
